@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link type="text/css" rel="stylesheet" href="static/css/materialize.min.css" media="screen,projection"/>
+    </head>
+    <body>
+      <div class="container">
+          <div class="col">
+              <p style="font-size: 1.3em"><u>Dataset: Wine</u></p>
+          </div>
+        <div class="row">
+          <p style="font-size: 1.3em"><u>Search charts:</u></p>
+          <label style="text-align: left">You can query for one of the following five values (day, gender, location, month, source)
+            <br>
+            For example: day=Monday<br><br>
+            If you want to query multiple values you can separate them using commas<br>
+            For example: day=Monday, source=Search (This will give results with day as Monday and source as Search)
+          </label>
+          <div class="input-field col s8">  
+            <input id="query_slice" type="text">
+          </div>
+          <div class="input-field col s2">
+            <button class="btn indigo waves-effect" id="search"><i class="material-icons large">search</i></button>
+          </div>
+        </div>
+        <div class="row" id="dataBox">
+        </div>
+      </div>
+      <script type="text/javascript" src="static/js/materialize.min.js"></script>
+      <script type="text/javascript" src="static/js/jquery.js"></script>
+      <script>
+          $(document).ready(function(){
+          $('#search').click(function(){
+            $.ajax({
+              type: 'GET',
+              url: '/search',
+              data: {
+                name: $('#query_slice').val()
+              },
+              success: (data) => {
+                $('#dataBox').html(data);
+            }
+          });
+        });
+      });
+    </script>
+    </body>
+</html>
